@@ -2,6 +2,7 @@ import app from "./app";
 import dotenv from "dotenv";
 import { connectToMongoDB } from "./infrastructure/database/mongo";
 import { verifyKafkaConfig } from "./infrastructure/kafka/kafka.client";
+import { connectProducer } from "./infrastructure/kafka/producer";
 
 dotenv.config();
 
@@ -14,7 +15,9 @@ const startServer = async () => {
   // Verify Kafka Configuration
   verifyKafkaConfig();
 
-  // tart HTTP Server
+  await connectProducer();
+
+  // Start HTTP Server
   const server = app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
   });
