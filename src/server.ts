@@ -1,8 +1,9 @@
-import app from "./app";
-import dotenv from "dotenv";
-import { connectToMongoDB } from "./infrastructure/database/mongo";
-import { verifyKafkaConfig } from "./infrastructure/kafka/kafka.client";
-import { connectProducer } from "./infrastructure/kafka/producer";
+import app from './app';
+import dotenv from 'dotenv';
+import { connectToMongoDB } from './infrastructure/database/mongo';
+import { verifyKafkaConfig } from './infrastructure/kafka/kafka.client';
+import { connectProducer } from './infrastructure/kafka/producer';
+import { connectConsumer } from './infrastructure/kafka/consumer';
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ const startServer = async () => {
   verifyKafkaConfig();
 
   await connectProducer();
+  await connectConsumer();
 
   // Start HTTP Server
   const server = app.listen(PORT, () => {
@@ -23,10 +25,10 @@ const startServer = async () => {
   });
 
   // Graceful Shutdown
-  process.on("SIGTERM", () => {
-    console.log("SIGTERM signal received: closing HTTP server");
+  process.on('SIGTERM', () => {
+    console.log('SIGTERM signal received: closing HTTP server');
     server.close(() => {
-      console.log("HTTP server closed");
+      console.log('HTTP server closed');
       process.exit(0);
     });
   });
