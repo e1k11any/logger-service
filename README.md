@@ -7,7 +7,6 @@ This project demonstrates **Domain-Driven Design (DDD)** principles and a resili
 ## 📋 Table of Contents
 
 - [Architecture](#-architecture)
-- [Project Structure](#-project-structure)
 - [Prerequisites](#-prerequisites)
 - [Installation](#-installation)
 - [Running Locally (Docker Compose)](#-running-locally-docker-compose)
@@ -30,22 +29,6 @@ This service utilizes an **Event-Driven Architecture** to handle high-throughput
 - **Domain-Driven Design (DDD):** Logic is separated into `Domain` (Entities/Interfaces), `Application` (Use Cases), and `Infrastructure` (Tools). This makes the code testable and database-agnostic.
 - **Asynchronous Processing:** Using Kafka prevents the database from becoming a bottleneck during write-heavy operations.
 - **Multi-Stage Docker Build:** The final image is optimized (~200MB) by stripping out development dependencies and TypeScript sources.
-
-## 📂 Project Structure
-
-src/
-├── domain/ # Enterprise Logic (Pure TS, no dependencies)
-│ ├── entities/ # Log Entity definition
-│ └── repositories/ # Interface definitions (Contracts)
-├── infrastructure/ # External Tools Implementation
-│ ├── database/ # Mongoose Schemas & Connection
-│ ├── kafka/ # KafkaJS Producer & Consumer
-│ └── repositories/ # MongoLogRepository implementation
-├── interfaces/ # Entry Points
-│ ├── http/ # Express Controllers & Routes
-│ └── events/ # Kafka Event Handlers
-├── app.ts # Express App Setup
-└── server.ts # Application Entry Point
 
 🛠 Prerequisites
 Node.js (v18 or higher)
