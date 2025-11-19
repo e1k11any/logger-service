@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eyego-logger
+spec:
+  replicas: 1 # Start with 1 to avoid log clutter
+  selector:
+    matchLabels:
+      app: eyego-logger
+  template:
+    metadata:
+      labels:
+        app: eyego-logger
+    spec:
+      containers:
+        - name: eyego-logger
+          image: eyego-logger:v1 # Must match my docker build tag exactly
+          imagePullPolicy: Never # CRITICAL for local development
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: eyego-config
+          resources:
+            limits:
+              memory: '512Mi'
+              cpu: '500m'

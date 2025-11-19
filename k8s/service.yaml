@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: eyego-service
+spec:
+  type: NodePort # Exposes port on the cluster
+  selector:
+    app: eyego-logger
+  ports:
+    - protocol: TCP
+      port: 3000 # Port inside the cluster service
+      targetPort: 3000 # Port on the container
+      nodePort: 30001 # External access port (http://localhost:30001)
