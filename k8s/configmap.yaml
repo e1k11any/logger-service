@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eyego-config
+data:
+  PORT: '3000'
+  NODE_ENV: 'production'
+  # "host.docker.internal" points to your actual machine (Windows/Mac)
+  # giving access to the Docker Compose ports mapped to localhost.
+  MONGO_URI: 'mongodb://host.docker.internal:27017/eyego-logs'
+  KAFKA_BROKERS: 'host.docker.internal:9092'
+  KAFKA_CLIENT_ID: 'eyego-k8s-client'
+  KAFKA_GROUP_ID: 'k8s-log-group'
